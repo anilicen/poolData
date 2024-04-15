@@ -24,4 +24,32 @@ class Match {
         player1Score = json["player1Score"],
         player2Score = json["player2Score"],
         raceTo = json["raceTo"];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'player1': player1.toJson(),
+      'player2': player2.toJson(),
+      'player1Score': player1Score,
+      'player2Score': player2Score,
+      'raceTo': raceTo,
+    };
+  }
+
+  Match copyWith({
+    String? id,
+    User? player1,
+    User? player2,
+    int? player1Score,
+    int? player2Score,
+    int? raceTo,
+  }) {
+    return Match(
+      id: id ?? this.id,
+      player1: player1 ?? this.player1,
+      player2: player2 ?? this.player2,
+      player1Score: player1Score ?? this.player1Score,
+      player2Score: player2Score ?? this.player2Score,
+      raceTo: raceTo ?? this.raceTo,
+    );
+  }
 }

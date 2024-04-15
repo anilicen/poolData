@@ -13,15 +13,25 @@ class Request {
   static const String endpoint = "https://eu-central-1.aws.data.mongodb-api.com/app/data-jtnzf/endpoint/data/v1";
 
   static Future<void> sendPostRequest() async {
-    var url = Uri.parse(link);
-    var response = await http.post(
-      url,
-    );
-    Map<String, dynamic> parsedResponse = json.decode(response.body);
-
-    accessToken = parsedResponse['access_token'];
-    refreshToken = parsedResponse['refresh_token'];
-    userId = parsedResponse['user_id'];
+    try {
+      var url = Uri.parse(link);
+      var response = await http.post(
+        url,
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> parsedResponse = json.decode(response.body);
+        accessToken = parsedResponse['access_token'];
+        refreshToken = parsedResponse['refresh_token'];
+        userId = parsedResponse['user_id'];
+      } else {
+        // Handle non-200 status code (e.g., 404, 500)
+        print("HTTP Error: ${response.statusCode}");
+        print("Response Body: ${response.body}");
+      }
+    } catch (error) {
+      // Handle any other errors that occur during the request
+      print("Error sending POST request: $error");
+    }
   }
 
   static Future<void> getMatches(List<pd.Match> matchList) async {
@@ -87,6 +97,53 @@ class Request {
           "database": "poolData",
           "collection": "matches",
           "document": json,
+        },
+      ),
+    );
+  }
+
+  static Future<void> addUser(Map<String, dynamic> json) async {
+    var url = "$endpoint/action/insertOne";
+
+    await Dio().post(
+      url,
+      options: Options(
+        headers: {
+          "content-type": "application/json",
+          "Authorization": 'Bearer $accessToken',
+        },
+      ),
+      data: jsonEncode(
+        {
+          "dataSource": "Cluster0",
+          "database": "poolData",
+          "collection": "users",
+          "document": json,
+        },
+      ),
+    );
+  }
+
+  static Future<void> updateUser(String id, int matchWon, int matchLost, int rackWon, int rackLost) async {
+    await Dio().post(
+      "$endpoint/action/updateOne",
+      options: Options(
+        headers: {
+          "content-type": "application/json",
+          "Authorization": 'Bearer $accessToken',
+        },
+      ),
+      data: jsonEncode(
+        {
+          "dataSource": "Cluster0",
+          "database": "poolData",
+          "collection": "users",
+          "filter": {
+            "_id": {"\$oid": id}
+          },
+          "update": {
+            "\$set": {"matchWon": matchWon, "matchLost": matchLost, "rackWon": rackWon, "rackLost": rackLost}
+          }
         },
       ),
     );

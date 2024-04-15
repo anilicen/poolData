@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:pool_data/app/main_page/main_controller.dart';
+import 'package:pool_data/constants.dart';
+import 'package:pool_data/widgets/pd_title.dart';
 
 // ignore: must_be_immutable
 class MainView extends View {
@@ -24,7 +26,7 @@ class _MainViewState extends ViewState<MainView, MainController> {
     final padding = MediaQuery.of(context).padding;
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: kBackgroundColor,
         body: SizedBox(
           width: size.width,
           height: size.height,
@@ -34,71 +36,66 @@ class _MainViewState extends ViewState<MainView, MainController> {
                 children: [
                   Container(
                     height: padding.top,
-                    color: Colors.black.withOpacity(0.05),
+                    color: kTitleBackgroundColor,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.05),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: const Text(
-                      'PoolData',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  PdTitle(size: size, text: 'PoolData'),
+                  const SizedBox(height: 50),
+                  _OutlinedButton(
+                    text: 'Matches',
+                    onPressed: () => controller.navigateToMatchesView(context),
                   ),
-                  SizedBox(height: 50),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 100,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.blue.withOpacity(0.1),
-                    ),
-                    child: Text(
-                      'Matches',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                  const SizedBox(height: 50),
+                  _OutlinedButton(
+                    text: "Start a match",
+                    onPressed: () => controller.navigateToAddMatchView(context),
                   ),
-                  SizedBox(height: 50),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 100,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.blue.withOpacity(0.1),
-                    ),
-                    child: Text(
-                      'Start a Match',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                  const SizedBox(height: 50),
+                  _OutlinedButton(
+                    text: "Show Players",
+                    onPressed: () => controller.navigateToShowPlayersView(context),
+                  ),
+                  const SizedBox(height: 50),
+                  _OutlinedButton(
+                    text: "Scoreboard",
+                    onPressed: () => controller.navigateToScoreboardView(context),
                   ),
                 ],
               );
             },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _OutlinedButton extends StatelessWidget {
+  const _OutlinedButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+  final Function() onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        alignment: Alignment.center,
+        height: 100,
+        width: 200,
+        decoration: BoxDecoration(
+          border: Border.all(color: kWhite),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: kWhite,
+            fontSize: 24,
+            fontWeight: FontWeight.normal,
           ),
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pool_data/app/main_page/main_view.dart';
+import 'package:pool_data/request.dart';
 
 void main() {
+  Request.sendPostRequest();
   runApp(MainView());
 }
 

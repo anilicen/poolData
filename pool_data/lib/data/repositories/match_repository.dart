@@ -1,9 +1,13 @@
-import 'package:pool_data/domain/entities/match.dart' as pd;
+import 'package:pool_data/domain/entities/match.dart';
 import 'package:pool_data/domain/repositories/match_repository.dart';
 import 'package:pool_data/request.dart';
 
 class DataMatchRepository implements MatchRepository {
-  List<pd.Match> matchList = [];
+  static final _instance = DataMatchRepository._internal();
+  DataMatchRepository._internal();
+  factory DataMatchRepository() => _instance;
+
+  List<Match> matchList = [];
 
   @override
   Future<void> addMatch(Map<String, dynamic> json) async {
@@ -15,7 +19,8 @@ class DataMatchRepository implements MatchRepository {
     await Request.getMatches(matchList);
   }
 
-  List<pd.Match> getMatchList() {
+  @override
+  List<Match> getMatchList() {
     return matchList;
   }
 }
