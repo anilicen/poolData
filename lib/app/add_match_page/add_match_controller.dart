@@ -114,7 +114,7 @@ class AddMatchController extends Controller {
       raceTo: raceTo,
     );
 
-    await _matchRepository.addMatch(match.toJson());
+    await _matchRepository.addMatch(match);
 
     User player1 = match.player1;
     User player2 = match.player2;
@@ -152,6 +152,7 @@ class AddMatchController extends Controller {
         player2.rackLost + match.player1Score,
       );
     }
+    await _userRepository.getUsers();
     Navigator.pop(context);
   }
 }

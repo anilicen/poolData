@@ -10,8 +10,9 @@ class DataMatchRepository implements MatchRepository {
   List<Match> matchList = [];
 
   @override
-  Future<void> addMatch(Map<String, dynamic> json) async {
-    await Request.addMatch(json);
+  Future<void> addMatch(Match match) async {
+    await Request.addMatch(match.toJson());
+    matchList.add(match);
   }
 
   @override
