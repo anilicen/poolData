@@ -15,6 +15,7 @@ class DataUserRepository implements UserRepository {
 
   @override
   Future<void> getUsers() async {
+    userList = [];
     await Request.getUsers(userList);
   }
 

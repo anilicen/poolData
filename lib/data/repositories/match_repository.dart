@@ -12,7 +12,7 @@ class DataMatchRepository implements MatchRepository {
   @override
   Future<void> addMatch(Match match) async {
     await Request.addMatch(match.toJson());
-    matchList.add(match);
+    if (matchList.isNotEmpty) matchList.add(match);
   }
 
   @override
