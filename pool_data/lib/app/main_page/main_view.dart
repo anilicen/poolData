@@ -39,25 +39,28 @@ class _MainViewState extends ViewState<MainView, MainController> {
                     color: kTitleBackgroundColor,
                   ),
                   PdTitle(size: size, text: 'PoolData'),
-                  const SizedBox(height: 50),
-                  _OutlinedButton(
-                    text: 'Matches',
-                    onPressed: () => controller.navigateToMatchesView(context),
-                  ),
-                  const SizedBox(height: 50),
-                  _OutlinedButton(
-                    text: "Start a match",
-                    onPressed: () => controller.navigateToAddMatchView(context),
-                  ),
-                  const SizedBox(height: 50),
-                  _OutlinedButton(
-                    text: "Show Players",
-                    onPressed: () => controller.navigateToShowPlayersView(context),
-                  ),
-                  const SizedBox(height: 50),
-                  _OutlinedButton(
-                    text: "Scoreboard",
-                    onPressed: () => controller.navigateToScoreboardView(context),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _OutlinedButton(
+                          text: 'Matches',
+                          onPressed: () => controller.navigateToMatchesView(context),
+                        ),
+                        _OutlinedButton(
+                          text: "Start a match",
+                          onPressed: () => controller.navigateToAddMatchView(context),
+                        ),
+                        _OutlinedButton(
+                          text: "Show Players",
+                          onPressed: () => controller.navigateToShowPlayersView(context),
+                        ),
+                        _OutlinedButton(
+                          text: "Scoreboard",
+                          onPressed: () => controller.navigateToScoreboardView(context),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               );

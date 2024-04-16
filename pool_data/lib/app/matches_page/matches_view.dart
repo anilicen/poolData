@@ -91,15 +91,18 @@ class _MatchContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            match.player1.username,
-            style: const TextStyle(
-              color: kWhite,
-              fontSize: 18,
+          Container(
+            width: 100,
+            child: Text(
+              match.player1.username,
+              style: const TextStyle(
+                color: kWhite,
+                fontSize: 18,
+              ),
             ),
           ),
+          Spacer(),
           Row(
             children: [
               Text(
@@ -127,11 +130,15 @@ class _MatchContainer extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            match.player2.username,
-            style: const TextStyle(
-              color: kWhite,
-              fontSize: 18,
+          Spacer(),
+          Container(
+            width: 100,
+            child: Text(
+              match.player2.username,
+              style: const TextStyle(
+                color: kWhite,
+                fontSize: 18,
+              ),
             ),
           ),
         ],
