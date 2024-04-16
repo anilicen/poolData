@@ -1,0 +1,4 @@
+#Mon Apr 15 21:30:49 TRT 2024
+base.0=C\:\\dev\\pd\\pool_data\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
